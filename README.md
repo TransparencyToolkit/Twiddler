@@ -1,5 +1,5 @@
-Text Tools
-==========
+Twiddler
+========
 
 This currently is a catch all package that uses other node text manipulation packages as well as my own little experiments.
 
