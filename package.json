@@ -1,10 +1,10 @@
 {
   "name": "twiddler",
   "version": "0.0.1",
-  "description": "a motley assortment of tools to do things with text beyond find & replace",
+  "description": "a motley assortment of tools to process and manipulate batches text from to different formats",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,10 @@
     "string",
     "processing"
   ],
-  "author": "Brennan Novak",
+  "author": "Brennan Novak <hi@bnvk.me>",
+  "bin": {
+    "twiddler": "./index.js"
+  },
   "license": "AGPLv3",
   "bugs": {
     "url": "https://github.com/bnvk/Twiddler/issues"
@@ -28,6 +31,7 @@
     "text-miner": "~1.0.3",
     "text-model": "~0.1.1",
     "text-parse": "~3.0.0",
+    "text-scrub": "~0.2.1",
     "emoji-text": "~0.2.5",
     "text-stats": "0.0.3",
     "argv": "0.0.2",
@@ -35,6 +39,7 @@
     "text-diff": "~1.0.1",
     "domify": "~1.3.3",
     "jsdom": "~6.1.0",
-    "underscore": "~1.8.3"
+    "underscore": "~1.8.3",
+    "chalk": "~1.1.1"
   }
 }
