@@ -1,104 +1,51 @@
 var _ = require('underscore')
-var TextMiner = require('text-miner')
+var chalk = require('chalk')
 var TextParse = require('text-parse')
 var TextDiff  = require('text-diff')
 var TextStats = require('text-stats')
 
-// Load Args
+// Args
 var argv = require('./lib/options')
 var args = argv.run()
 
 // App
-var Files = require('./lib/files')
-var GroupSplit = require('./lib/group-split')
-var Formater = require('./lib/formater')
-
 var Twiddler = {}
+
+Twiddler.Files      = require('./lib/files')
+
+Twiddler.ToolScrub  = require('./lib/tool-scrub')
+Twiddler.ToolMiner  = require('./lib/tool-miner')
+
+Twiddler.Formater   = require('./lib/formater')
 
 // Load File
 if (args.options.input !== undefined) {
-  Files.openFile(args.options.input)
+
+  Twiddler.Files.OpenFile(args.options.input)
     .then(function(file_data) {
-      var lines = file_data.split('\n')
 
-      console.log('Processing on ' + lines.length + ' lines of data ---------------------------')
-      var old_stats = TextStats.stats(file_data)
-      console.log(old_stats)
+      console.log(chalk.green('Opened file: ' + args.options.input))
 
-      // Output Structure
-      var output = {
-        unsorted: [],
-        groups: {}
-      };
+      // Process With TextMiner
+      // var output = Twiddler.ToolMiner('Some super text goes here in this AWESOME Tool!!!!')
+      var data_output = Twiddler.ToolScrub(file_data)
 
-      // Tool Arg: find_replace
-      var match = ''
-      var replace = ''
-
-      // Tool Arg: trim_start
-      var trim_start = 0;
-
-      // Tool Arg: trim_end
-      var trim_end = 1;
-
-      // Tool Arg: unique
-      var unique = [];
-
-      // Tool Arg: group_it
-      var group_split = {
-        term: '.sbd/',
-        depth: 2,
-        join: 'ignore',
-        unique: true
+      // Choose Output & Format
+      if (args.options.save) {
+        var output = Twiddler.Formater(args.options, data_output)
       }
 
-      // Tool: lines
-      _.each(lines, function(line, key) {
-        if (line) {
-
-          // Tool: find_replace
-          line = line.replace(match, replace);
-
-          // Tool: trim_start(int)
-          line = line.substring(trim_start, line.length);
-
-          // Tool: trim_end(int)
-          line = line.substring(0, line.length - trim_end);
-
-          // Tool: group_split
-          if (group_split) {
-
-            output = GroupSplit.process(group_split, output, line)
-
-          } else {
-
-            // Tool: unique
-            if (_.indexOf(unique, line) === -1) {
-              unique.push(line)
-
-              // Format: multi_line
-              output += line + '\n'
-            }
-          }
-        }
-      });
-
-      // Choose format
-      if (args.options.format == 'json') {
-        var file_output = JSON.stringify(output)
-      } else {
-        var file_output = Formater.default(args.options.output, output)
-      }
-
-      var saveFile = Files.saveFile(args.options.input + '-converted', file_output);
-      console.log('Finished -------------------------------------------------------')
+      // console.log(chalk.green('Output:'))
+      // console.log(output)
+      console.log(chalk.green(output.message))
+      console.log(chalk.green('Finished Twiddling all the things'))
 
   }).catch(function(error) {
-    console.log(error);
-  });
+    console.log(chalk.red(error))
+  })
 
 } else {
-  console.log('Oops, are you sure you specified an --input -i');
+  console.log(chalk.yellow('Oops, are you sure you specified an --input -i'))
 }
 
-module.exports = Twiddler;
+module.exports = Twiddler
