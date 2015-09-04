@@ -1,6 +1,6 @@
 {
   "name": "twiddler",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "a motley assortment of tools to process and manipulate batches text from to different formats",
   "main": "index.js",
   "scripts": {
