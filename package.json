@@ -1,6 +1,6 @@
 {
   "name": "twiddler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "a motley assortment of tools to process and manipulate batches text from to different formats",
   "main": "index.js",
   "scripts": {
@@ -41,6 +41,7 @@
     "csv": "~0.4.6",
     "datapackage-init": "~0.2.1",
     "slugs": "~0.1.3",
-    "mkdirp": "~0.5.1"
+    "mkdirp": "~0.5.1",
+    "underscore": "~1.8.3"
   }
 }
