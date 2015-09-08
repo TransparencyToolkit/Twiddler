@@ -1,10 +1,13 @@
 var assert = require("assert")
+var cheerio = require('cheerio')
+var _ = require('underscore')
 
 var Twiddler = require('../index')
 
+$ = cheerio.load('<div id="test">Yo, howz it going in the <a href="https://doge-haus.de" target="_blank">doge haus</a> my friend?</div>')
 
-var text_element = {}
 var text_determine = { memes: true, doge: ['shibe', 'gordon'], kitteh: ['gulli', 'hoskuldur'], empty_data: {} }
+var text_object_simple = { doge: 'Shibe life for eva', kitteh: 'Hoskuldur is a boss' }
 var text_multi_line = '/home/root/path/thunderbird-profile/ImapMail/account-5.com/Projects\n'
 + '/home/root/path/thunderbird-profile/ImapMail/account-5.com/Ideas\n'
 + '/home/root/path/thunderbird-profile/ImapMail/account-6.com/Clients.sbd/USA.sbd/East Coast.sbd/Cities.sbd/New York\n'
@@ -16,6 +19,7 @@ var text_multi_line = '/home/root/path/thunderbird-profile/ImapMail/account-5.co
 + '/home/root/path/thunderbird-profile/ImapMail/account-7.com/Friends.sbd/Transparency Toolkit\n'
 + '/home/root/path/thunderbird-profile/ImapMail/account-8.com/Friends\n'
 + '/home/root/path/thunderbird-profile/ImapMail/account-8.com/Cats\n'
+var text_multi_line_simple = 'yo dog\nsup cat\nchillin rat'
 
 describe('Twiddler', function(){
 
@@ -33,6 +37,11 @@ describe('Twiddler', function(){
     it('should analyze & determine "empty"', function(done) {
       var text_test = Twiddler.Formatter.Determine(text_determine.empty_data)
       assert.equal('empty', text_test)
+      done()
+    })
+    it('should analyze & determine "element"', function(done) {
+      var text_test = Twiddler.Formatter.Determine($('#test')[0])
+      assert.equal('element', text_test)
       done()
     })
     it('should analyze & determine "object"', function(done) {
@@ -68,6 +77,36 @@ describe('Twiddler', function(){
     it('should analyze & determine "NaN"', function(done) {
       var text_test = Twiddler.Formatter.Determine(NaN)
       assert.equal('undefined', text_test)
+      done()
+    })
+  })
+
+  describe('Twildder.Converter', function() {
+    it('should convert "element" to "string"', function(done) {
+      var text_test = Twiddler.Converter.Run('element', 'string', $('#test').html(), { ignoreHref: true })
+      assert.equal('Yo, howz it going in the doge haus my friend?', text_test)
+      done()
+    })
+    it('should convert "object" to "array"', function(done) {
+      var text_test = Twiddler.Converter.Run('object', 'array', text_object_simple)
+      assert.equal('Shibe life for eva', text_test[1])
+      assert.equal('Hoskuldur is a boss', text_test[3])
+      done()
+    })
+    it('should convert "object" to "string"', function(done) {
+      var text_test = Twiddler.Converter.Run('object', 'string', text_object_simple)
+      assert.equal('doge Shibe life for eva kitteh Hoskuldur is a boss', text_test)
+      done()
+    })
+    it('should convert "multi-line" to "array"', function(done) {
+      var text_test = Twiddler.Converter.Run('multi-line', 'array', text_multi_line_simple)
+      assert.equal('yo dog', text_test[0])
+      assert.equal('chillin rat', text_test[2])
+      done()
+    })
+    it('should convert "multi-line" to "string"', function(done) {
+      var text_test = Twiddler.Converter.Run('multi-line', 'string', text_multi_line_simple)
+      assert.equal('yo dog sup cat chillin rat', text_test)
       done()
     })
   })
