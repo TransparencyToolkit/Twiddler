@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bnvk/Twiddler"
+    "url": "https://github.com/TransparencyToolkit/Twiddler"
   },
   "keywords": [
     "text",
@@ -25,7 +25,7 @@
   },
   "license": "AGPLv3",
   "bugs": {
-    "url": "https://github.com/bnvk/Twiddler/issues"
+    "url": "https://github.com/TransparencyToolkit/Twiddler/issues"
   },
   "dependencies": {
     "argv": "0.0.2",
