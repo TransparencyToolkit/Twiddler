@@ -1,3 +1,5 @@
+var pkg = require('package')('./')
+var path = require('path')
 var _ = require('underscore')
 var chalk = require('chalk')
 var TextParse = require('text-parse')
@@ -12,33 +14,60 @@ var args = argv.run()
 var Twiddler = {}
 
 Twiddler.Files      = require('./lib/files')
+Twiddler.Converter  = require('./lib/converter')
+Twiddler.Formatter  = require('./lib/formatter')
+Twiddler.Processor  = require('./lib/processor')
+Twiddler.Outputer   = require('./lib/outputer')
 
-Twiddler.ToolScrub  = require('./lib/tool-scrub')
-Twiddler.ToolMiner  = require('./lib/tool-miner')
-
-Twiddler.Formater   = require('./lib/formater')
 
 // Load File
 if (args.options.input !== undefined) {
 
+  var job_path = path.dirname(args.options.input) + '/'
+
+  // Open Job
   Twiddler.Files.OpenFile(args.options.input)
-    .then(function(file_data) {
+    .then(function(job) {
+      var job = JSON.parse(job)
+      job.state = 'opened'
 
-      console.log(chalk.green('Opened file: ' + args.options.input))
+      // Validate Version
+      if (pkg.version >= job.version) {
 
-      // Process With TextMiner
-      // var output = Twiddler.ToolMiner('Some super text goes here in this AWESOME Tool!!!!')
-      var data_output = Twiddler.ToolScrub(file_data)
+        console.log(chalk.blue('Processing files: ' + job.files.join()))
 
-      // Choose Output & Format
-      if (args.options.save) {
-        var output = Twiddler.Formater(args.options, data_output)
+        // Open File
+        Twiddler.Files.OpenFile(job_path + job.files[0])
+          .then(function(file_data) {
+
+            console.log(chalk.blue('Opened file: ' + args.options.input))
+            console.log('----------------------------------------------------------------')
+
+            // Data Stuff
+            var data_output = Twiddler.Outputer[job.output]
+
+            // Process Data
+            var data_output = Twiddler.Processor(job, file_data, data_output)
+
+            console.log(data_output)
+            console.log('----------------------------------------------------------------')
+
+            // Output Formats
+            var output = Twiddler.Outputer.Files(job_path, job, data_output)
+
+            // Debug
+            //console.log(output)
+            //console.log('-------------------------------------------------------------')
+
+
+            console.log(chalk.green(output.message))
+            console.log(chalk.green('Finished Twiddling all the things'))
+
+        }).catch(function(error) {
+          console.log(chalk.red(error))
+        })
+
       }
-
-      // console.log(chalk.green('Output:'))
-      // console.log(output)
-      console.log(chalk.green(output.message))
-      console.log(chalk.green('Finished Twiddling all the things'))
 
   }).catch(function(error) {
     console.log(chalk.red(error))
