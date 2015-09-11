@@ -1,32 +1,44 @@
 {
   "name": "twiddler",
-  "version": "0.1.1",
-  "description": "a motley assortment of tools to process and manipulate batches text from to different formats",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha test"
-  },
+  "productName": "Twiddler",
+  "version": "0.1.2",
+  "description": "a motley assortment of text processing tools to twiddle and manipulate batches of text from/to various formats",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/TransparencyToolkit/Twiddler"
   },
-  "keywords": [
-    "text",
-    "text",
-    "tools",
-    "text",
-    "mining",
-    "string",
-    "processing"
-  ],
-  "author": "Brennan Novak <hi@bnvk.me>",
-  "bin": {
-    "twiddler": "./index.js"
+  "author": {
+    "name": "Brennan Novak",
+    "email": "hi@bnvk.me",
+    "url": "transparencytoolkit.org"
   },
-  "license": "AGPLv3",
   "bugs": {
     "url": "https://github.com/TransparencyToolkit/Twiddler/issues"
   },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha test",
+    "start": "electron .",
+    "build": "electron-packager . $npm_package_productName --out=dist --ignore='^/dist$' --prune --asar --all --version=0.31.1"
+  },
+  "files": [
+    "index.js",
+    "index.html",
+    "index.css"
+  ],
+  "keywords": [
+    "electron-app",
+    "text parsing",
+    "text tools",
+    "natural language processing",
+    "text mining",
+    "string processing",
+    "text processing",
+    "datapackages"
+  ],
   "dependencies": {
     "argv": "0.0.2",
     "chalk": "~1.1.1",
@@ -44,6 +56,23 @@
     "text-scrub": "latest",
     "text-stats": "0.0.3",
     "underscore": "~1.8.3",
-    "cheerio": "~0.19.0"
+    "cheerio": "~0.19.0",
+    "electron-debug": "^0.1.1",
+    "bootstrap": "~3.3.5"
+  },
+  "devDependencies": {
+    "electron-packager": "^5.0.0",
+    "electron-prebuilt": "^0.31.1",
+    "xo": "^0.7.1"
+  },
+  "xo": {
+    "esnext": true,
+    "envs": [
+      "node",
+      "browser"
+    ],
+    "rules": {
+      "prefer-arrow-callback": 0
+    }
   }
 }
