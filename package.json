@@ -63,7 +63,8 @@
     "requestify": "~0.1.17",
     "timer.js": "~1.0.3",
     "datapackage-read": "~0.2.2",
-    "datapackage-identifier": "~0.3.1"
+    "datapackage-identifier": "~0.3.1",
+    "crypto": "0.0.3"
   },
   "devDependencies": {
     "electron-packager": "^5.0.0",
