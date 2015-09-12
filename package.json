@@ -58,7 +58,12 @@
     "underscore": "~1.8.3",
     "cheerio": "~0.19.0",
     "electron-debug": "^0.1.1",
-    "bootstrap": "~3.3.5"
+    "bootstrap": "~3.3.5",
+    "request": "~2.61.0",
+    "requestify": "~0.1.17",
+    "timer.js": "~1.0.3",
+    "datapackage-read": "~0.2.2",
+    "datapackage-identifier": "~0.3.1"
   },
   "devDependencies": {
     "electron-packager": "^5.0.0",
