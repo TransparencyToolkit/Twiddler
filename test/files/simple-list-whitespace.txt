@@ -1,0 +1,37 @@
+  "Personal"45:
+"Github"46:
+  "Family"47:
+"Friends"48:
+"Qubes"50:
+"Condo"51:
+    "Todo"52:
+"Spam"53:
+"Trash"54:
+"England"55:
+
+"San Francisco"56:
+"Taxes"66:
+"Codez"69:
+  "New York"71:
+"Music"73:
+"Ideas"76:
+"Asia"77:
+"Forked"89:
+"Debug"97:
+
+"Berlin"10:
+"Health"10:
+"Travel"10:
+"Iceland"11:
+  "Events"11:
+"Crafts"11:
+"Feedback"11:
+"Newsletters"11:
+"Support, Domains, Servers"12:
+"Testing"12:
+    "Lists"12:
+  "Design"12:
+"Receipts"12:
+ "Important Things"13:
+"Photos"13:
+"Collaborators"13:
