@@ -16,19 +16,12 @@
   "bugs": {
     "url": "https://github.com/TransparencyToolkit/Twiddler/issues"
   },
-  "engines": {
-    "node": ">=0.10.0"
-  },
   "scripts": {
     "test": "mocha test",
     "start": "electron .",
-    "build": "electron-packager . $npm_package_productName --out=dist --ignore='^/dist$' --prune --asar --all --version=0.31.1"
+    "package": "electron-packager . $npm_package_productName --platform=all --arch=x64 --out=dist --ignore='^/dist$' --overwrite --prune --version=0.32.3"
   },
-  "files": [
-    "index.js",
-    "index.html",
-    "index.css"
-  ],
+  "main": "main.js",
   "keywords": [
     "electron-app",
     "text parsing",
@@ -64,11 +57,11 @@
     "timer.js": "~1.0.3",
     "datapackage-read": "~0.2.2",
     "datapackage-identifier": "~0.3.1",
-    "crypto": "0.0.3"
+    "datapackage-validate": "~0.2.3"
   },
   "devDependencies": {
-    "electron-packager": "^5.0.0",
-    "electron-prebuilt": "^0.31.1",
+    "electron-prebuilt": "^0.32.3",
+    "electron-packager": "~5.1.0",
     "xo": "^0.7.1"
   },
   "xo": {
