@@ -3,10 +3,11 @@ var cheerio = require('cheerio')
 var _ = require('underscore')
 
 var Files      = require('../lib/files')
-var Project    = require('../lib/project')
 var Converter  = require('../lib/converter')
 var Formatter  = require('../lib/formatter')
+var Hasher     = require('../lib/hasher')
 var Processor  = require('../lib/processor')
+var Project    = require('../lib/project')
 var Outputer   = require('../lib/outputer')
 
 $ = cheerio.load('<div id="test">Yo, howz it going in the <a href="https://doge-haus.de" target="_blank">doge haus</a> my friend?</div>')
@@ -26,7 +27,7 @@ var text_multi_line = '/home/root/path/thunderbird-profile/ImapMail/account-5.co
 + '/home/root/path/thunderbird-profile/ImapMail/account-8.com/Cats\n'
 var text_multi_line_simple = 'yo dog\nsup cat\nchillin rat'
 
-describe('Libraries Libraries', function() {
+describe('Twiddler Libraries', function() {
 
   describe('Project.Open', function() {
     it('should get a Twiddler project file', function() {
@@ -87,7 +88,15 @@ describe('Libraries Libraries', function() {
     })
   })
 
-  describe('Twildder.Converter', function() {
+  describe('Hasher', function() {
+    it('should get a sha1 hash from a specified file', function() {
+      Hasher.GetFromFile('./test/files/paragraph.txt').then(function(file_hash) {
+        assert.equal('5de03d86b901d6a29efc48f9f599dafaf388b8d4', file_hash)
+      })
+    })
+  })
+
+  describe('Converter', function() {
     it('should convert "element" to "string"', function(done) {
       var text_test = Converter.Run('element', 'string', $('#test').html(), { ignoreHref: true })
       assert.equal('Yo, howz it going in the doge haus my friend?', text_test)
