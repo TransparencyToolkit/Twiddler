@@ -4,28 +4,23 @@
   "description": "used for testing Twiddlers libraries, functions, and calls",
   "license": "PDDL-1.0",
   "version": "0.1.1",
-  "sources": [{
-    "name": "Multi-line Nested Directory Strings",
-    "file": "files/nested-directories.txt",
-    "hash": "e1efbd1cf8a67ed0692a137ec26b49f54d3b0c0e",
-    "output": "default",
-    "order": true,
-    "formats": ["md"]
-  },{
-    "name": "Paragraphs of Text",
-    "file": "files/paragraph.txt",
-    "hash": "5de03d86b901d6a29efc48f9f599dafaf388b8d4",
-    "output": "default",
-    "order": true,
-    "formats": ["md"]
-  },{
-    "name": "Simple List Bad Whitespace",
-    "file": "files/simple-list-whitespace.txt",
-    "hash": "dd4e95d714eceabe1d925178c76446c296df48ae",
-    "output": "default",
-    "order": true,
-    "formats": ["md"]
-  }],
+  "sources": [
+    {
+      "source": "files/nested-directories.txt",
+      "type": "file",
+      "hash": "e1efbd1cf8a67ed0692a137ec26b49f54d3b0c0e"
+    },
+    {
+      "source": "files/paragraph.txt",
+      "type": "file",
+      "hash": "5de03d86b901d6a29efc48f9f599dafaf388b8d4"
+    },
+    {
+      "source": "files/simple-list-whitespace.txt",
+      "type": "file",
+      "hash": "dd4e95d714eceabe1d925178c76446c296df48ae"
+    }
+  ],
   "tools": [
     { "tool": "scrub", "sources": ["e1efbd1cf8a67ed0692a137ec26b49f54d3b0c0e"], "opts": [
       { "scrub": "trim", "start": "/home/jack/thunderbird-profiles/8j702x6r.default/ImapMail/", "end": 1 },
@@ -38,6 +33,11 @@
     },
     { "tool": "scrub", "sources": ["dd4e95d714eceabe1d925178c76446c296df48ae"], "opts":
       [{ "scrub": "clean", "all": true }, { "scrub": "trim", "start": 1, "end": 3 }, { "scrub": "grow", "start": "[ ] " }] }
+  ],
+  "output": "default",
+  "order": true,
+  "formats": [
+    "md"
   ],
   "state": "new"
 }
