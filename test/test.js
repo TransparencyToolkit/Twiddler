@@ -2,13 +2,13 @@ var assert = require("assert")
 var cheerio = require('cheerio')
 var _ = require('underscore')
 
-var Files      = require('../lib/files')
 var Converter  = require('../lib/converter')
+var Files      = require('../lib/files')
 var Formatter  = require('../lib/formatter')
 var Hasher     = require('../lib/hasher')
+var Outputer   = require('../lib/outputer')
 var Processor  = require('../lib/processor')
 var Project    = require('../lib/project')
-var Outputer   = require('../lib/outputer')
 
 $ = cheerio.load('<div id="test">Yo, howz it going in the <a href="https://doge-haus.de" target="_blank">doge haus</a> my friend?</div>')
 
@@ -29,19 +29,50 @@ var text_multi_line_simple = 'yo dog\nsup cat\nchillin rat'
 
 describe('Twiddler Libraries', function() {
 
-  describe('Project.Open', function() {
-    it('should get a Twiddler project file', function() {
-      Project.Open('./test/twiddler-test-data.json').then(function(project_test) {
-        assert.equal('twiddler-test-data', project_test)
-        assert.equal('Multi-line Nested Directory Strings', project_test.sources[0].name)
-        assert.equal('Paragraphs of Text', project_test.sources[1].name)
-        assert.equal('Simple List Bad Whitespace', project_test.sources[2].name)
-      })
+  describe('Converter', function() {
+    it('should convert "element" to "string"', function(done) {
+      var text_test = Converter.Run('element', 'string', $('#test').html(), { ignoreHref: true })
+      assert.equal('Yo, howz it going in the doge haus my friend?', text_test)
+      done()
+    })
+    it('should convert "object" to "array"', function(done) {
+      var text_test = Converter.Run('object', 'array', text_object_simple)
+      assert.equal('Shibe life for eva', text_test[1])
+      assert.equal('Hoskuldur is a boss', text_test[3])
+      done()
+    })
+    it('should convert "object" to "string"', function(done) {
+      var text_test = Converter.Run('object', 'string', text_object_simple)
+      assert.equal('doge Shibe life for eva kitteh Hoskuldur is a boss', text_test)
+      done()
+    })
+    it('should convert "multi-line" to "array"', function(done) {
+      var text_test = Converter.Run('multi-line', 'array', text_multi_line_simple)
+      assert.equal('yo dog', text_test[0])
+      assert.equal('chillin rat', text_test[2])
+      done()
+    })
+    it('should convert "multi-line" to "string"', function(done) {
+      var text_test = Converter.Run('multi-line', 'string', text_multi_line_simple)
+      assert.equal('yo dog sup cat chillin rat', text_test)
+      done()
     })
   })
 
-  describe('Formatter.Determine', function() {
-    it('should analyze & determine "empty"', function(done) {
+  describe('Files ', function() {
+    it('should open a file correctly', function() {
+      Files.OpenFile('./test/files/simple-file.txt').then(function(test_file) {
+        assert('oh hello over there my friend', test_file)
+      })
+    })
+    it('should test saving a file... TO BE DONE', function(done) {
+      assert.equal('dog', 'dog')
+      done()
+    })
+  })
+
+  describe('Formatter', function() {
+    it('should analyze and determine data style', function(done) {
       var text_test = Formatter.Determine(text_determine.empty_data)
       assert.equal('empty', text_test)
       done()
@@ -100,40 +131,22 @@ describe('Twiddler Libraries', function() {
     })
   })
 
-  describe('Converter', function() {
-    it('should convert "element" to "string"', function(done) {
-      var text_test = Converter.Run('element', 'string', $('#test').html(), { ignoreHref: true })
-      assert.equal('Yo, howz it going in the doge haus my friend?', text_test)
-      done()
+  describe('Project', function() {
+    it('should open a twiddler.json project file', function() {
+      Project.Open('./test/twiddler-test.json').then(function(project_test) {
+        assert.equal('twiddler-test-data', project_test)
+        assert.equal('Multi-line Nested Directory Strings', project_test.sources[0].name)
+        assert.equal('Paragraphs of Text', project_test.sources[1].name)
+        assert.equal('Simple List Bad Whitespace', project_test.sources[2].name)
+      })
     })
-    it('should convert "object" to "array"', function(done) {
-      var text_test = Converter.Run('object', 'array', text_object_simple)
-      assert.equal('Shibe life for eva', text_test[1])
-      assert.equal('Hoskuldur is a boss', text_test[3])
-      done()
-    })
-    it('should convert "object" to "string"', function(done) {
-      var text_test = Converter.Run('object', 'string', text_object_simple)
-      assert.equal('doge Shibe life for eva kitteh Hoskuldur is a boss', text_test)
-      done()
-    })
-    it('should convert "multi-line" to "array"', function(done) {
-      var text_test = Converter.Run('multi-line', 'array', text_multi_line_simple)
-      assert.equal('yo dog', text_test[0])
-      assert.equal('chillin rat', text_test[2])
-      done()
-    })
-    it('should convert "multi-line" to "string"', function(done) {
-      var text_test = Converter.Run('multi-line', 'string', text_multi_line_simple)
-      assert.equal('yo dog sup cat chillin rat', text_test)
-      done()
-    })
-  })
-
-  describe('Files.SaveFile', function() {
-    it('IMPLEMENT should test saving a file...', function(done) {
-      assert.equal('dog', 'dog')
-      done()
+    it('should create a new twiddler.json project file in ./test/ directory', function() {
+      var project_data = { description: 'used for testing Twiddlers libraries, functions, and calls', state: 'new' }
+      Project.New('./test/', 'Twiddler Test Project', project_data).then(function(success) {
+        assert.equal('project created', success)
+      }, function(error){
+        assert.equal('project exists', error)
+      })
     })
   })
 
