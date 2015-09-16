@@ -94,6 +94,10 @@ describe('Twiddler Libraries', function() {
         assert.equal('5de03d86b901d6a29efc48f9f599dafaf388b8d4', file_hash)
       })
     })
+    it('should return a sha1 hash from a specified string', function() {
+      var string_hash = Hasher.GetFromString('yo dawg, I heard you like boots and cats')
+      assert.equal('634b8d151a8673bf051748c5ee506d93967fc128', string_hash)
+    })
   })
 
   describe('Converter', function() {
