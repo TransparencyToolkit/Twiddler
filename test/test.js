@@ -148,6 +148,18 @@ describe('Twiddler Libraries', function() {
         assert.equal('project exists', error)
       })
     })
+    it('should add files in ./test/files/ as sources to test', function() {
+      var project_data = { description: 'used for testing Twiddlers libraries, functions, and calls', state: 'new' }
+      Project.AddSourceFile('./test/', './test/files/nested-directories.txt')
+      Project.AddSourceFile('./test/', './test/files/paragraph.txt')
+      Project.AddSourceFile('./test/', './test/files/simple-list-whitespace.txt')
+    })
+    it('should remove a source from project', function() {
+      Project.RemoveSource('./test/', './test/files/nested-directories.txt')
+      Project.RemoveSource('./test/', './test/files/paragraph.txt')
+      Project.RemoveSource('./test/', './test/files/simple-list-whitespace.txt')
+    })
+
   })
 
 });
