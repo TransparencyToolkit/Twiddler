@@ -132,13 +132,12 @@ describe('Twiddler Libraries', function() {
   })
 
   describe('Project', function() {
-    it('should open a twiddler.json project file', function() {
-      Project.Open('./test/twiddler-test.json').then(function(project_test) {
-        assert.equal('twiddler-test-data', project_test)
-        assert.equal('Multi-line Nested Directory Strings', project_test.sources[0].name)
-        assert.equal('Paragraphs of Text', project_test.sources[1].name)
-        assert.equal('Simple List Bad Whitespace', project_test.sources[2].name)
-      })
+    it('should open a twiddler.json project file', function(done) {
+      var project_test = Project.Open('./test/twiddler-test.json')
+      assert.equal('twiddler-test-project', project_test.name)
+      assert.equal('files/nested-directories.txt', project_test.sources[0].source)
+      assert.equal('files/simple-list-whitespace.txt', project_test.sources[2].source)
+      done()
     })
     it('should create a new twiddler.json project file in ./test/ directory', function() {
       var project_data = { description: 'used for testing Twiddlers libraries, functions, and calls', state: 'new' }
