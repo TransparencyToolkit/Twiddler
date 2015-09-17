@@ -1,5 +1,6 @@
-bower_components
+app/bower_components
 node_modules
 /dist
 /test/output/
 /test/twiddler.json
+npm-debug.log

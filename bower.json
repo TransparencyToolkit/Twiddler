@@ -1,0 +1,26 @@
+{
+  "name": "Twiddler",
+  "version": "0.1.0",
+  "homepage": "https://github.com/TransparencyToolkit/Twiddler",
+  "authors": [
+    "Brennan Novak <hi@bnvk.me>"
+  ],
+  "description": "the web browser GUI for Twiddler",
+  "main": "app/index.js",
+  "moduleType": [
+    "amd",
+    "es6"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test"
+  ],
+  "dependencies": {
+    "bootstrap": ">=3.1.1",
+    "transparency": ">=0.11.0"
+  }
+}
