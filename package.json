@@ -24,7 +24,7 @@
   "main": "main.js",
   "preferGlobal": true,
   "bin": {
-    "twiddler": "./twiddler.js"
+    "twiddler": "./cli/twiddler.js"
   },
   "keywords": [
     "electron-app",
