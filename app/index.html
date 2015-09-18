@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Twiddler</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/index.css">
+	</head>
+	<body>
+		<div class="container">
+
+			<div class="row">
+				<h1 class="text-center">Twiddler</h1>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<h2 class="text-center">Import New Data</h2>
+					<form class="form">
+					<ul id="list-new-data">
+						<li>
+							<label>Paste Text</label>
+							<textarea id="import-new-pasted" placeholder="Paste any length of text here..."></textarea>
+						</li>
+						<li><button id="import-new-file" class="btn btn-lg btn-primary">Select a File</button></li>
+						<li><button id="import-new-directory" class="btn btn-lg btn-primary">Scan a Directory</button></li>
+					</ul>
+					</form>
+				</div>
+				<div class="col-md-6">
+					<h2 class="text-center">Existing Datasets</h2>
+					<ul id="list-existing-data">
+						<li></li>
+					</ul>
+				</div>
+			</div>
+
+			<div id="debug" class="row">
+				<h3>Debug</h3>
+				<button id="start-progress">Start Progresss</button>
+				<button id="stop-progress">Stop Progresss</button>
+			</div>
+
+		</div>
+
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/index.js"></script>
+	</body>
+</html>
