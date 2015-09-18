@@ -69,6 +69,13 @@ describe('Twiddler Libraries', function() {
       assert.equal('dog', 'dog')
       done()
     })
+    it('should walk directory and find 3 files', function() {
+      var files_test = []
+      Files.Walk('./test/files/', function(file_path) {
+        files_test.push(file_path)
+      })
+      assert.equal(3, files_test.length)
+    })
   })
 
   describe('Formatter', function() {
