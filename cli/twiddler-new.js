@@ -2,6 +2,7 @@
 'use strict'
 var _         = require('underscore')
 var chalk     = require('chalk')
+var slugs     = require('slugs')
 var inquirer  = require('inquirer')
 var program   = require('commander')
 
@@ -9,7 +10,7 @@ var App = require('../app.js')
 
 program
   .option('-o, --overwrite', 'overwrite exisitng twiddler.json')
-  .option('-f, --files', 'scans input directory for files and adds as sources')
+  .option('-s, --scan', 'scans project directory for files and adds sources')
   .parse(process.argv)
 
 var ChooseSources = function(path, type, source) {
@@ -82,10 +83,7 @@ if (program.args[0] !== undefined) {
   var save_path = App.Utils.AddSlash(program.args[0])
   var check_path = App.Project.Open(save_path)
 
-  if (!_.isObject(check_path) && _.indexOf(['outdated', 'invalid'], check_path) === -1) {
-
-    // Existing
-    var projects = App.Config.Read('projects')
+  if (!_.isObject(check_path) && _.indexOf(['outdated', 'invalid'], check_path) === -1 || program.overwrite) {
 
     // Suggested Values
     var save_pieces = save_path.split('/')
@@ -100,15 +98,25 @@ if (program.args[0] !== undefined) {
       answers = _.omit(answers, 'tools_picker')
 
       // Save It
-      App.Project.New(save_path, answers.title, answers).then(function(added) {
+      App.Project.New(save_path, answers.title, answers, program.overwrite).then(function(added) {
 
-        // Update Config
-        projects.push({ name: answers.title, path: save_path })
-        App.Config.Save('projects', projects)
+        var project_name = slugs(answers.title)
 
-        console.log(chalk.green('Saved your project ' + answers.title))
-        console.log(chalk.green('Now add sources to your project'))
-        console.log(chalk.yellow('    twiddler source\n'))
+        console.log(chalk.green('\nSaved your project: ' + project_name))
+
+        // Scan Files
+        if (program.scan) {
+          console.log(chalk.green('Scanning files and adding as source\n'))
+          App.Files.Walk(save_path, function(file_path) {
+            App.Project.AddSourceFile(save_path, file_path)
+            console.log(chalk.green(' + added source: ' + file_path))
+          })
+        }
+
+        console.log(chalk.green('\nOpen & add sources with commands:\n'))
+        console.log(chalk.green(' twiddler open ' + project_name))
+        console.log(chalk.green(' twiddler open <path>'))
+        console.log(chalk.green(' twiddler source ' + project_name + ' <type>\n'))
 
       }, function(error) {
         console.log(chalk.red(error))
