@@ -7,6 +7,7 @@ var inquirer  = require('inquirer')
 var program   = require('commander')
 
 var App = require('../app.js')
+var Cli = require('./twiddler')
 
 program
   .option('-v, --verbose', 'print out verbose processing details')
@@ -16,17 +17,8 @@ if (program.args[0] !== undefined) {
 
   var project = App.Project.Open(program.args[0])
 
-  console.log(chalk.green('--------------------------------------------------------------------------------'))
-  console.log(chalk.green('  ' + project.title + ' (' + project.name + ')'))
-  console.log(chalk.green('  Description: ' + project.description))
-  console.log(chalk.green('  Sources: ' + project.sources.length))
-  _.each(project.sources, function(source, count) {
-    console.log(chalk.green('    - ' + source.source))
-  })
-  console.log(chalk.green('  Tools: ' + _.pluck(project.tools, 'tool').join(', ')))
-  console.log(chalk.green('  Output: ' + project.output))
-  console.log(chalk.green('  Formats: ' + project.formats.join(', ')))
-  console.log(chalk.green('--------------------------------------------------------------------------------'))
+  // Display
+  Cli.PrintProject(project)
 
   var project_options = [
     { action: 'add_file', item: '- add a file' },

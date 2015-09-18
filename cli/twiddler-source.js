@@ -7,6 +7,7 @@ var inquirer  = require('inquirer')
 var program   = require('commander')
 
 var App = require('../app.js')
+var Cli = require('./twiddler')
 
 program
   .option('-t, --type [type]', 'Choose type of source',  /^(file|folder|path|string)$/i, 'folder')
