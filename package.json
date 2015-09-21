@@ -1,9 +1,9 @@
 {
   "name": "twiddler",
   "productName": "Twiddler",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "a motley assortment of text processing tools to twiddle and manipulate batches of text from/to various formats",
-  "license": "MIT",
+  "license": "AGPLv3",
   "repository": {
     "type": "git",
     "url": "https://github.com/TransparencyToolkit/Twiddler"

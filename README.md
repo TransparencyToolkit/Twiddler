@@ -29,6 +29,8 @@ These dependencies will give you all you need to run the basic Twiddler app via 
 
 ```
 twiddler new /path/to/project/
+-o --overwrite  // Overwrite exsting project
+-s --save       // Scan folder of project and add sources
 ```
 
 **open** - open an existing project
