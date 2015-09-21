@@ -1,18 +1,14 @@
 {
   "name": "twiddler",
   "productName": "Twiddler",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "a motley assortment of text processing tools to twiddle and manipulate batches of text from/to various formats",
   "license": "AGPLv3",
   "repository": {
     "type": "git",
     "url": "https://github.com/TransparencyToolkit/Twiddler"
   },
-  "author": {
-    "name": "Brennan Novak",
-    "email": "hi@bnvk.me",
-    "url": "transparencytoolkit.org"
-  },
+  "author": "Brennan Novak <hi@bnvk.me>",
   "bugs": {
     "url": "https://github.com/TransparencyToolkit/Twiddler/issues"
   },
